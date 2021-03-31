@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/JB-todo-demo-app/static/css/main.9d5b29c0.chunk.css",
+    "main.js": "/JB-todo-demo-app/static/js/main.d7b80dc4.chunk.js",
+    "main.js.map": "/JB-todo-demo-app/static/js/main.d7b80dc4.chunk.js.map",
+    "runtime-main.js": "/JB-todo-demo-app/static/js/runtime-main.cabbd702.js",
+    "runtime-main.js.map": "/JB-todo-demo-app/static/js/runtime-main.cabbd702.js.map",
+    "static/js/2.bff673c1.chunk.js": "/JB-todo-demo-app/static/js/2.bff673c1.chunk.js",
+    "static/js/2.bff673c1.chunk.js.map": "/JB-todo-demo-app/static/js/2.bff673c1.chunk.js.map",
+    "static/js/3.dc7d1cd4.chunk.js": "/JB-todo-demo-app/static/js/3.dc7d1cd4.chunk.js",
+    "static/js/3.dc7d1cd4.chunk.js.map": "/JB-todo-demo-app/static/js/3.dc7d1cd4.chunk.js.map",
+    "index.html": "/JB-todo-demo-app/index.html",
+    "static/css/main.9d5b29c0.chunk.css.map": "/JB-todo-demo-app/static/css/main.9d5b29c0.chunk.css.map",
+    "static/js/2.bff673c1.chunk.js.LICENSE.txt": "/JB-todo-demo-app/static/js/2.bff673c1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cabbd702.js",
+    "static/js/2.bff673c1.chunk.js",
+    "static/css/main.9d5b29c0.chunk.css",
+    "static/js/main.d7b80dc4.chunk.js"
+  ]
+}
