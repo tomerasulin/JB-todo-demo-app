@@ -2,12 +2,10 @@ import { Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useState } from 'react';
-import { useQueryClient, useQuery } from 'react-query';
+
 
 
 export default function TodoList(){
- 
-  const queryClient = useQueryClient();
 
   const [ todo, setTodo ] = useState([]);
                 
@@ -24,10 +22,8 @@ export default function TodoList(){
       'http://nztodo.herokuapp.com/api/tasks/?format=json'
     )
     const data = await response.json();
-    return data;
+    setTodo(data);
   }
-
-  const query = useQuery('todos', loadList);
                 
   return(
     <div>

@@ -3,9 +3,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import TodoList from './components/TodoList';
-import { QueryClientProvider, QueryClient } from 'react-query';
-
-const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -21,13 +18,10 @@ function App() {
 			
 			<div className="row justify-content-center mt-5">
 				<div className="col-4">
-					<QueryClientProvider client={ queryClient }>
 						<TodoList />
-					</QueryClientProvider>
 				</div>
 			</div>
 		</div>	
-		
 		<Footer />		
 	</div>
   );
