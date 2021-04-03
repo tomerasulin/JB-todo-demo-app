@@ -1,12 +1,16 @@
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import { useState } from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 export default function Login(){
 
-  const isLoading = false;
+  const [ isLoading, setIsLoading ] = useState(false);
 
   const submitForm = async (event) => {
+    setIsLoading(true);
     event.preventDefault();
     const response = await fetch(
       'https://academeez-login-ex.herokuapp.com/api/users/login',
@@ -23,6 +27,7 @@ export default function Login(){
     )
     const data = await response.json();
     console.log(data);
+    setIsLoading(false);
   }
   return(
     <Paper elevation={2}>
@@ -47,7 +52,7 @@ export default function Login(){
           Submit
         </Button>
         {
-          isLoading && <h3>Loading...</h3>
+          isLoading && <CircularProgress />
         }
       </form>
     </Paper>
