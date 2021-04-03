@@ -19,7 +19,7 @@ export default function TodoList(){
 
   const loadList = async () => {
     const response = await fetch(
-      'http://nztodo.herokuapp.com/api/tasks/?format=json'
+      'https://nztodo.herokuapp.com/api/tasks/?format=json'
     )
     const data = await response.json();
     setTodo(data);
