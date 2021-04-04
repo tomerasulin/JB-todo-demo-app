@@ -5,122 +5,69 @@ import { useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import { useHistory } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
-function validateEmail(email)
-{
-  var re = /\S+@\S+\.\S+/;
-  return re.test(email);
-}
+
 export default function Login(){
-  const history = useHistory();
   const [ isLoading, setIsLoading ] = useState(false);
-  const [ inputs, setInputs ] = useState({
-    email: '',
-    password: ''
-  });
-  const [ errors, setErrors ] = useState({
-    email: null,
-    password: null
-  });
 
-  const submitForm = async (event) => {
-    event.preventDefault();
+  const history = useHistory();
 
-    //validation
-    let isValid = true;
-    let newErrors = { email : null, password : null};
-    if(!inputs.email)
-    {
-      isValid = false;
-      newErrors = {
-        ...newErrors,
-        email : 'This field is required'
-      }
-    }
-
-    if(!inputs.password)
-    {
-      isValid = false;
-      newErrors = {
-        ...newErrors,
-        password : 'This field is required'
-      }
-    }
-
-    if(inputs.password.length < 5)
-    {
-      isValid = false;
-      newErrors = {
-        ...newErrors,
-        password : 'Password length must be at least with 5 characters'
-      }
-    }
-
-    if(!validateEmail(inputs.email))
-    {
-      isValid = false;
-      newErrors = {
-        ...newErrors,
-        email : 'Invalid email'
-      }
-    }
-
-    setErrors(newErrors);
-    if(!isValid)
-    {
-      return;
-    }
-    setIsLoading(true);
-
-    const response = await fetch(
-      'https://academeez-login-ex.herokuapp.com/api/users/login',
-      {
-        method: 'POST',
-        body: JSON.stringify(inputs),
-        headers: {
-          'Content-Type': 'application/json'
+  const formik = useFormik({
+    initialValues:{
+      email: '',
+      password: '',
+    },
+    validationSchema : Yup.object({
+      email : Yup.string().email('Invalid email').required('Required'),
+      password : Yup.string().min(5, 'Must be 5 characters or more').required('Required'),
+    }),
+    onSubmit: async values => {
+      setIsLoading(true);
+      const response = await fetch(
+        'https://academeez-login-ex.herokuapp.com/api/users/login',
+        {
+          method: 'POST',
+          body: JSON.stringify(values),
+          headers: {
+            'Content-Type': 'application/json'
+          }
         }
-      }
-    )
-    const data = await response.json();
-    console.log(data);
-    setIsLoading(false);
-    history.push('/todo');
-  }
-
-  const changeHandler = (event) => {
-    setInputs(
-      {
-        ...inputs,
-        [event.target.name] : event.target.value
-      }
-    )
-  }
+      )
+      const data = await response.json();
+      console.log(data);
+      setIsLoading(false);
+      history.push('/todo');
+    },
+  });
+  
   return(
     <Paper className="p-4">
-      <form onSubmit={ submitForm } noValidate autoComplete="off">
+      <form onSubmit={ formik.handleSubmit } noValidate autoComplete="off">
         <div className="form-group">
           <TextField 
-                  error = {errors.email}
                   name="email" 
-                  label={errors.email ? 'Error' : 'Enter your email'}
-                  helperText={errors.email}
+                  label="Enter your email"
                   type="email"
-                  onChange= { changeHandler }
-                  value = { inputs.email } 
+                  onChange= { formik.handleChange }
+                  onBlur={ formik.handleBlur }
+                  value = { formik.values.email }
+                  error = { formik.touched.email && Boolean(formik.errors.email) }
+                  helperText = { formik.touched.email && formik.errors.email} 
                   className="w-100"
                   variant="outlined"
             />
         </div>
         <div className="form-group">
           <TextField
-
-                  error = { errors.password }
-                  onChange={ changeHandler }
-                  value = { inputs.password }
-                  helperText={errors.password}
+                  onChange={  formik.handleChange }
+                  value = { formik.values.password }
+                  onBlur= { formik.handleBlur }
+                  error = { formik.touched.password && Boolean(formik.errors.password) }
+                  helperText = { formik.touched.password && formik.errors.password}
                   name="password"
-                  label={errors.password ? 'Error' : 'Enter your password'}
+                  label="Enter your password"
                   type="password"
                   className="w-100"
                   variant="outlined"
